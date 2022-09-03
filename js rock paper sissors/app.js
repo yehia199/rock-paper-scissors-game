@@ -9,12 +9,10 @@ let whoWin = document.querySelector('#whoWin');
 let btns = document.querySelectorAll('button');
 let btn = document.querySelector(`button[data-type='btn']`);
 
-console.log(btns)
-console.log(btn)
 function getComputerChoice() {
-  return Math.floor(Math.random() * 3)
+  let choices = ['rock','paper','scissors'];
+  return choices[Math.floor(Math.random()*choices.length)];
 }
-
 
 function playRound(playerSelection, computerSelection) {
   if (userScore == 5 ) {
@@ -24,35 +22,25 @@ function playRound(playerSelection, computerSelection) {
     whoWin.textContent = 'the computer won match refesh the page to play again';
     return;
    }
-   if(computerSelection == 1 && playerSelection == 'scissors') {
+   if((computerSelection == 'rock' && playerSelection == 'scissors')||
+      (computerSelection == 'paper' && playerSelection == 'rock') ||
+      (computerSelection == 'scissors' && playerSelection == 'paper')) {
       computerScore++;
       computerScoreDom.textContent = computerScore;
-      return whoWin.textContent = 'you lose';
+      return whoWin.textContent = `you lose, the computer played ${computerSelection} and you played ${playerSelection}`;
    } 
-   else if(computerSelection == 2 && playerSelection == 'rock') {
-     computerScore++
-     computerScoreDom.textContent = computerScore;
-     return whoWin.textContent = 'you lose';
-   }
-   else if(computerSelection == 3 && playerSelection == 'paper') {
-     computerScore++
-     computerScoreDom.textContent = computerScore;
-     return whoWin.textContent = 'you lose';
-   }
-   else if(computerSelection == 1 && playerSelection == 'rock') {
+
+   else if(computerSelection == playerSelection && playerSelection == computerSelection) {
     return whoWin.textContent = 'it is a tie';
    }
-   else if(computerSelection == 2 && playerSelection == 'paper') {
-    return whoWin.textContent = 'it is a tie';
-   }
-   else if(computerSelection == 3 && playerSelection == 'scissors') {
-    return whoWin.textContent = 'it is a tie';
-   }
-   else {
-     userScore++
-     userScoreDom.textContent = userScore
-     return whoWin.textContent = 'you win';
-   }
+
+  else if((playerSelection == 'rock' && computerSelection == 'scissors')||
+      (playerSelection == 'paper' && computerSelection == 'rock') ||
+      (playerSelection== 'scissors' && computerSelection== 'paper')) {
+      userScore++;
+      userScoreDom.textContent = userScore;
+      return whoWin.textContent = `you win, the computer played ${computerSelection} and you played ${playerSelection}`;
+   } 
 
 }
 
